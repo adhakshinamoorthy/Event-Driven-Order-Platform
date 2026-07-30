@@ -4,7 +4,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "${SQL_SA_PASSWORD:-Local_dev_ONLY_ChangeMe123!}"
+      MSSQL_SA_PASSWORD: "${SQL_SA_PASSWORD:?Set SQL_SA_PASSWORD in .env}"
     ports: ["1433:1433"]
     volumes: ["sql-data:/var/opt/mssql"]
     healthcheck:
@@ -37,7 +37,8 @@ services:
       dockerfile: src/Services/Order/Order.Api/Dockerfile
     environment:
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__OrderDb: "Server=sqlserver,1433;Database=OrderDb;User Id=sa;Password=${SQL_SA_PASSWORD:-Local_dev_ONLY_ChangeMe123!};TrustServerCertificate=True"
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__OrderDb: "Server=sqlserver,1433;Database=OrderDb;User Id=sa;Password=${SQL_SA_PASSWORD};TrustServerCertificate=True"
     ports: ["5101:8080"]
     depends_on:
       sqlserver: { condition: service_healthy }

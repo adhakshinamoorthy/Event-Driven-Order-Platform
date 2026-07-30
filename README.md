@@ -57,7 +57,7 @@ Copy-Item .env.example .env
 docker compose up --build
 ```
 
-Swagger is available at `http://localhost:5101/swagger`; health is `http://localhost:5101/health`. Replace the example SQL password in `.env` for local use. The password checked into `appsettings.json` is explicitly local-only and must never be reused outside this repository.
+Swagger is available at `http://localhost:5101/swagger`; health is `http://localhost:5101/health`. Credentials are not committed: copy `.env.example` to `.env` and replace the placeholder before starting Compose.
 
 ### API
 
