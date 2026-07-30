@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/SharedKernel/SharedKernel.csproj" />
+    <Project Path="src/BuildingBlocks/Contracts/Contracts.csproj" />
+  </Folder>
+  <Folder Name="/Services/Order/">
+    <Project Path="src/Services/Order/Order.Domain/Order.Domain.csproj" />
+    <Project Path="src/Services/Order/Order.Contracts/Order.Contracts.csproj" />
+    <Project Path="src/Services/Order/Order.Application/Order.Application.csproj" />
+    <Project Path="src/Services/Order/Order.Infrastructure/Order.Infrastructure.csproj" />
+    <Project Path="src/Services/Order/Order.Api/Order.Api.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/Order.Domain.Tests/Order.Domain.Tests.csproj" />
+    <Project Path="tests/Architecture.Tests/Architecture.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <ProjectReference Include="../Order.Domain/Order.Domain.csproj" />
+    <ProjectReference Include="../Order.Contracts/Order.Contracts.csproj" />
+  </ItemGroup>
+</Project>
