@@ -22,6 +22,11 @@ try
     var app = builder.Build();
     app.UseExceptionHandler(); app.UseSerilogRequestLogging(); app.UseHttpsRedirection();
     app.MapHealthChecks("/health"); app.MapOpenApi(); app.UseSwagger(); app.UseSwaggerUI();
+    if (app.Environment.IsDevelopment())
+    {
+        await using var scope = app.Services.CreateAsyncScope();
+        await scope.ServiceProvider.GetRequiredService<OrderDbContext>().Database.EnsureCreatedAsync();
+    }
     var orders = app.MapGroup("/api/orders").WithTags("Orders");
     orders.MapPost("/", async (CreateOrderRequest request, ISender sender, CancellationToken ct) =>
     {

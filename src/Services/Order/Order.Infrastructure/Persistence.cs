@@ -42,13 +42,14 @@ public sealed class OrderDbContext(DbContextOptions<OrderDbContext> options) : D
     {
         var aggregates = ChangeTracker.Entries<AggregateRoot>().Select(x => x.Entity).Where(x => x.DomainEvents.Count != 0).ToArray();
         foreach (var aggregate in aggregates)
-        foreach (var domainEvent in aggregate.DomainEvents)
-            OutboxMessages.Add(new OutboxMessage
-            {
-                Id = domainEvent.EventId, OccurredOn = domainEvent.OccurredOn,
-                Type = domainEvent.GetType().AssemblyQualifiedName ?? domainEvent.GetType().FullName!,
-                Payload = JsonSerializer.Serialize(domainEvent, domainEvent.GetType())
-            });
+            foreach (var domainEvent in aggregate.DomainEvents)
+                OutboxMessages.Add(new OutboxMessage
+                {
+                    Id = domainEvent.EventId,
+                    OccurredOn = domainEvent.OccurredOn,
+                    Type = domainEvent.GetType().AssemblyQualifiedName ?? domainEvent.GetType().FullName!,
+                    Payload = JsonSerializer.Serialize(domainEvent, domainEvent.GetType())
+                });
         var affectedRows = await base.SaveChangesAsync(cancellationToken);
         foreach (var aggregate in aggregates) aggregate.ClearDomainEvents();
         return affectedRows;
